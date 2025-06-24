@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int main() {
+void PlacesU(){
     string places[15] = {"Cafetería", 
                          "Edificios A, B y C", 
                          "Edificio D", 
@@ -18,6 +18,10 @@ int main() {
                          "Centro Monseñor Romero", 
                          "La Pasto UCA", 
                          "Estacionamiento"};
+}
+
+int main() {
+    PlacesU();
     bool open[15] = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}; 
     int option;
 
@@ -25,7 +29,7 @@ int main() {
         cout << "Lugares disponibles:\n";
         for (int i = 0; i < 15; i++) {
             if (open[i]) {
-                cout << (i + 1) << ". " << places[i] << "\n";
+                cout << (i + 1) << ". " << PlacesU() << "\n";
             }
         }
         cout << "0. Salir\n";
