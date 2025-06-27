@@ -2,16 +2,31 @@
 
 using namespace std;
 
-void RemoveMenuLF() {
+void PlacesU(){
     string places[15] = {"Cafetería", 
-                         "Magnas", 
-                         "Polideportivo", 
-                         "Terrazas", 
-                         "Edificios A, B y C", 
-                         };
-    bool open[15] = {true, true, true, true, true}; 
-    int option;
+                  "Magnas", 
+                  "Polideportivo", 
+                  "Terrazas", 
+                  "Edificios A, B y C", 
+                  "Edificio D",  
+                  "CRAI", 
+                  "CEDITEC", 
+                  "Edificio Jon de Cortina", 
+                  "Auditorio Ignacio Ellacuría", 
+                  "Edificio ICAS",
+                  "PEA",  
+                  "Centro Monseñor Romero", 
+                  "Mercaduca", 
+                  "Estacionamiento"
+                 };
+    return places;
+}
 
+void RemoveMenuLF() {
+    PlacesU();
+    places[15];
+    bool open[5] = {true, true, true, true, true}; 
+    int option;
 
     do {
         cout << "Lugares disponibles:\n";
@@ -35,18 +50,9 @@ void RemoveMenuLF() {
 }
 
 void RemoveMenuLM() {
-    string places[10] = {"Cafetería", 
-                         "Magnas", 
-                         "Polideportivo", 
-                         "Terrazas", 
-                         "Edificios A, B y C", 
-                         "Edificio D",  
-                         "CRAI", 
-                         "CEDITEC", 
-                         "Edificio Jon de Cortina", 
-                         "Auditorio Ignacio Ellacuría", 
-                         };
-    bool open[15] = {true, true, true, true, true, true, true, true, true, true}; 
+    PlacesU();
+    places[15];
+    bool open[10] = {true, true, true, true, true, true, true, true, true, true}; 
     int option;
 
     do {
@@ -71,21 +77,8 @@ void RemoveMenuLM() {
 }
 
 void RemoveMenuLD() {
-    string places[15] = {"Cafetería", 
-                         "Magnas", 
-                         "Polideportivo", 
-                         "Terrazas", 
-                         "Edificios A, B y C", 
-                         "Edificio D",  
-                         "CRAI", 
-                         "CEDITEC", 
-                         "Edificio Jon de Cortina", 
-                         "Auditorio Ignacio Ellacuría", 
-                         "Edificio ICAS",
-                         "PEA",  
-                         "Centro Monseñor Romero", 
-                         "Mercaduca", 
-                         "Estacionamiento"};
+    PlacesU();
+    places[15];
     bool open[15] = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}; 
     int option;
 

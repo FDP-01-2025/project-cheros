@@ -1,6 +1,19 @@
 #include <iostream>
 using namespace std;
 
+void Start(){
+    cout << "-------------------- BUHO QUEST --------------------\n";
+    cout << "       __________________________________________\n";
+    cout << "      |  Bienvenido a Buho Quest!                |\n";
+    cout << "      |  Soy Eros y tengo una mision para ti...  |\n";
+    cout << "      |  He decidido esconderme en un lugar de   |\n";
+    cout << "      |  la UCA, y tu tarea es encontrarme :)    |\n";
+    cout << " ^ ^ /___________________________________________|\n";
+    cout << "(0,0)\n";
+    cout << "{'''}\n";
+    cout << "-*-*--\n";
+}
+
 char ChooseLevel(){
     char level;
     int repeat = 1;
@@ -31,17 +44,7 @@ char ChooseLevel(){
     return level;
 }
 int main(){
-    cout << "-------------------- BUHO QUEST --------------------\n";
-    cout << "       ___________________________________________\n";
-    cout << "      |   Bienvenido a Buho Quest!                |\n";
-    cout << "      |   Soy ... y tengo una mision para ti...   |\n";
-    cout << "      |   He decidido esconderme en un lugar de   |\n";
-    cout << "      |   la UCA, y tu tarea es encontrarme :)    |\n";
-    cout << " ^ ^ /____________________________________________|\n";
-    cout << "(0,0)\n";
-    cout << "{'''}\n";
-    cout << "-*-*--\n";
-
+    Start();
     char level = ChooseLevel();
 
     switch(level){
