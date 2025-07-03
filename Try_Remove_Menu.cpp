@@ -2,29 +2,32 @@
 
 using namespace std;
 
-void PlacesU(){
-    string places[15] = {"Cafetería", 
-                  "Magnas", 
-                  "Polideportivo", 
-                  "Terrazas", 
-                  "Edificios A, B y C", 
-                  "Edificio D",  
-                  "CRAI", 
-                  "CEDITEC", 
-                  "Edificio Jon de Cortina", 
-                  "Auditorio Ignacio Ellacuría", 
-                  "Edificio ICAS",
-                  "PEA",  
-                  "Centro Monseñor Romero", 
-                  "Mercaduca", 
-                  "Estacionamiento"
-                 };
-    return places;
+void PlacesU(string places[]) {
+    string temp[15] = {
+        "Cafetería", 
+        "Magnas", 
+        "Polideportivo", 
+        "Terrazas", 
+        "Edificios A, B y C", 
+        "Edificio D",  
+        "CRAI", 
+        "CEDITEC", 
+        "Edificio Jon de Cortina", 
+        "Auditorio Ignacio Ellacuría", 
+        "Edificio ICAS",
+        "PEA",  
+        "Centro Monseñor Romero", 
+        "Mercaduca", 
+        "Estacionamiento"
+    };
+    for (int i = 0; i < 15; i++) {
+        places[i] = temp[i];
+    }
 }
 
 void RemoveMenuLF() {
-    PlacesU();
-    places[15];
+    string places[15];
+    PlacesU(places);
     bool open[5] = {true, true, true, true, true}; 
     int option;
 
@@ -50,8 +53,8 @@ void RemoveMenuLF() {
 }
 
 void RemoveMenuLM() {
-    PlacesU();
-    places[15];
+    string places[15];
+    PlacesU(places);
     bool open[10] = {true, true, true, true, true, true, true, true, true, true}; 
     int option;
 
@@ -77,8 +80,8 @@ void RemoveMenuLM() {
 }
 
 void RemoveMenuLD() {
-    PlacesU();
-    places[15];
+    string places[15];
+    PlacesU(places);
     bool open[15] = {true, true, true, true, true, true, true, true, true, true, true, true, true, true, true}; 
     int option;
 

@@ -8,7 +8,7 @@ void Start(){
     cout << "      |  Soy Eros y tengo una mision para ti...  |\n";
     cout << "      |  He decidido esconderme en un lugar de   |\n";
     cout << "      |  la UCA, y tu tarea es encontrarme :)    |\n";
-    cout << " ^ ^ /___________________________________________|\n";
+    cout << " ,_, /___________________________________________|\n";
     cout << "(0,0)\n";
     cout << "{'''}\n";
     cout << "-*-*--\n";
