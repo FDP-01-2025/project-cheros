@@ -1,96 +1,75 @@
 #include <iostream>
 #include <cstdlib>
-#include <time.h>
+#include <ctime>
 using namespace std;
 
-int Random_Num(){
-    srand(time(NULL));
-    int random = rand() % 15 + 1; 
-    return random;
+const int goal = 20;
+
+int rollDice() {
+    return rand() % 6 + 1;
 }
 
-void Questions2() {
-    cout << "=============================================== Categoria 2. Rincon de saberes ================================================\n";
-    cout << "| A. Este lugar tiene un espacio para llenar de formulas y dibujos, esta siempre frente a ti en clase                         |\n";
-    cout << "| B. Este lugar tiene aparatos rodeado de teclas y luz brillante, donde trabaja el estudiante                                 |\n";
-    cout << "| C. Este sitio tiene un lugar privado, útil y discreto, entras con urgencia y sales con transparencia                        |\n";
-    cout << "===============================================================================================================================\n";
-
-}
-
-void Answer2(int random){
-    char option;
-    cout << "¿Qué pista quieres que Eros te responda? Esto te acercará a su escondite: ";
-    cin >> option;
-    cout << "==============================================================================================================================\n";
-    switch(option){
-        case 'A':
-        if(random == 2 || random == 5 || random == 6 || random == 8 || random == 9 || random == 11){
-            cout << "       _______________________\n";
-            cout << "      | Si, hay pizarrones :) |\n";
-            cout << " ,_, /________________________|\n";
-            cout << "(0,0)\n";
-            cout << "{'''}\n";
-            cout << "-*-*--\n";
-        }else{
-            cout << "       ___________________________________\n";
-            cout << "      | Este lugar no tiene pizarrones :( |\n";
-            cout << " ,_, /____________________________________|\n";
-            cout << "(0,0)\n";
-            cout << "{'''}\n";
-            cout << "-*-*--\n";
-        }
-        break;
-        case 'B':
-        if(random == 7 || random == 9 || random == 11){
-            cout << "       ___________________________________\n";
-            cout << "      | Si, este sitio tiene computadoras |\n";
-            cout << " ,_, /____________________________________|\n";
-            cout << "(0,0)\n";
-            cout << "{'''}\n";
-            cout << "-*-*--\n";
-        }else{
-            cout << "       _________________________\n";
-            cout << "      | No, no hay computadoras |\n";
-            cout << " ,_, /__________________________|\n";
-            cout << "(0,0)\n";
-            cout << "{'''}\n";
-            cout << "-*-*--\n";
-        }
-        break;
-        case 'C':
-        if(random == 3 || random == 5 || random == 6 || random == 7 || random == 8 || random == 9 || random == 11){
-            cout << "       _____________________________________\n";
-            cout << "      | Claro, y cuentan hasta con papel :) |\n";
-            cout << " ,_, /______________________________________|\n";
-            cout << "(0,0)\n";
-            cout << "{'''}\n";
-            cout << "-*-*--\n";
-        }else{
-            cout << "       ____________________________________________________________________\n";
-            cout << "      | No hay baños aqui pero puedes encontrar uno cerca en otro lugar :( |\n";
-            cout << " ,_, /_____________________________________________________________________|\n";
-            cout << "(0,0)\n";
-            cout << "{'''}\n";
-            cout << "-*-*--\n";
-        }
-        break;
-        default:
-        cout << "       _________________________\n";
-        cout << "      | ERROR, ingresa A, B o C |\n";
-        cout << " ,_, /__________________________|\n";
-        cout << "(0,0)\n";
-        cout << "{'''}\n";
-        cout << "-*-*--\n";
-        break;
+void showBoard(int playerPos, int cpuPos) {
+    cout << "\nTablero:\n";
+    for (int i = 1; i <= goal; i++) {
+        if (i == playerPos && i == cpuPos)
+            cout << "[J&C]";
+        else if (i == playerPos)
+            cout << "[ J ]";
+        else if (i == cpuPos)
+            cout << "[ C ]";
+        else
+            cout << "[   ]";
     }
-        cout << "Num: " << random << "\n";
-
+    cout << "\n";
 }
-int main(){
-    Questions2();
-    int place_num = Random_Num();
-    Answer2(place_num);
 
+void Minigame1() {
+    int playerPos = 0, ErosPos = 0;
+    string userInput;
+
+    cout << "¡Bienvenido a Mini-Parchís! Llega a la meta (casilla 20) para ganar.\n";
+
+    while (playerPos < goal && ErosPos < goal) {
+        cout << "\nEscribe 0 y presiona Enter para lanzar el dado... ";
+        do {
+            getline(cin, userInput);
+            if (userInput != "0") {
+                cout << "Entrada inválida. Por favor, escribe 0 y presiona Enter para lanzar el dado: ";
+            }
+        } while (userInput != "0");
+
+        int playerRoll = rollDice();
+        cout << "Tiraste un " << playerRoll << "!\n";
+        playerPos += playerRoll;
+        if (playerPos > goal) {
+            playerPos = goal;
+        }
+
+        showBoard(playerPos, ErosPos);
+
+        if (playerPos >= goal) {
+            break;
+        }
+        cout << "\nTurno de la computadora...\n";
+        int ErosRoll = rollDice();
+        cout << "La computadora tiró un " << ErosRoll << "!\n";
+        ErosPos += ErosRoll;
+        if (ErosPos > goal) {
+            ErosPos = goal;
+        }
+        showBoard(playerPos, ErosPos);
+    }
+
+    if (playerPos >= goal) {
+        cout << "\n¡Felicidades, ganaste!\n";
+    } else {
+        cout << "\nLa computadora ganó. ¡Suerte la próxima vez!\n";
+    }
+}
+
+int main() {
+    srand(time(0));
+    Minigame1();
     return 0;
 }

@@ -4,18 +4,26 @@
 
 using namespace std;
 
-const int RONDAS = 5;
+void Show_door() {
+    srand(time(0));
 
-void mostrarPuertas(int correcta) {
-    for (int i = 1; i <= 3; i++) {
-        if (i == correcta){
-            cout << "   _________\n";
-            cout << " |           |\n";
-            cout << "|             |\n";
-            cout << "|      " << i << "    o |\n";
-            cout << "|             |\n";
-            cout << "|_____________|\n";
-        }else{
+    const int rounds = 5;
+    int desing[rounds];
+    int choice;
+    int lives = 4;
+
+    for (int i = 0; i < rounds; i++) {
+        desing[i] = rand() % 3 + 1;
+    }
+
+    cout << "Bienvenido al desafio 2 - LAS PUERTAS DEL SABER\n";
+    cout << "Debes elegir la puerta correcta en cada ronda para avanzar.\n";
+    cout << "Tienes 4 vidas. Cruza las 5 puertas para ganar y obtener una pista.\n";
+
+    for (int round = 0; round < rounds; round++) {
+        cout << "\nRonda " << round + 1 << "\n";
+
+        for (int i = 1; i <= 3; i++) {
             cout << "   _________\n";
             cout << " |           |\n";
             cout << "|             |\n";
@@ -23,49 +31,30 @@ void mostrarPuertas(int correcta) {
             cout << "|             |\n";
             cout << "|_____________|\n";
         }
+
+        cout << "\nElige una puerta (1, 2 o 3): ";
+        cin >> choice;
+
+        if (choice == desing[round]) {
+            cout << "Respuesta correcta. Has cruzado la puerta.\n";
+        } else {
+            lives--;
+            cout << "Puerta equivocada.\n";
+            cout << "Te quedan " << lives << " vidas.\n";
+
+            if (lives == 0) {
+                cout << "Has perdido todas tus vidas en la ronda " << round + 1 << ".\n";
+                return;
+            }
+
+            round--;
+        }
     }
-    cout << "\n";
+
+    cout << "\nFelicidades. Has cruzado las 5 puertas correctamente y conocerás una nueva pista.\n";
 }
 
 int main() {
-    srand(time(0));
-
-    int patron[RONDAS];
-    int eleccion;
-    int vidas = 4;
-
-    for (int i = 0; i < RONDAS; i++) {
-        patron[i] = std::rand() % 3 + 1;
-    }
-
-    cout << "BIENVENIDO AL JUEGO DE LAS 3 PUERTAS\n";
-    cout << "Debes elegir la puerta correcta en cada ronda para avanzar.\n";
-    cout << "Tienes 4 vidas. Cruza las 5 puertas para ganar.\n";
-
-    for (int ronda = 0; ronda < RONDAS; ronda++) {
-        cout << "\nRONDA " << ronda + 1 << "\n";
-        mostrarPuertas(patron[ronda]);
-
-        cout << "Elige una puerta (1, 2 o 3): ";
-        cin >> eleccion;
-
-        if (eleccion == patron[ronda]) {
-           cout << "Respuesta correcta. Has cruzado la puerta.\n";
-        } else {
-            vidas--;
-            cout << "Puerta equivocada. " << ".\n";
-            cout << "Te quedan " << vidas << " vidas.\n";
-
-            if (vidas == 0) {
-                cout << "Has perdido todas tus vidas en la ronda " << ronda + 1 << ".\n";
-                return 0;
-            }
-
-            // Repetir la misma ronda si se falló
-            ronda--;
-        }
-    }
-
-    cout << "\nFELICIDADES. Has cruzado las 5 puertas correctamente.\n";
+    Show_door();
     return 0;
 }
