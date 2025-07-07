@@ -1,19 +1,70 @@
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
+#include <fstream>
 using namespace std;
 
-void GuessPlace1(); 
-void GuessPlace2();
-void GuessPlace3();
+struct User;
+User Register();
+bool Login(User &user);
+void SaveAttempts(const User& user, int level, int attempts);
+void GuessPlace1(User user); 
+void GuessPlace2(User user);
+void GuessPlace3(User user);
 char BackMenu();
-void Minigame1();   
-void Minigame2();
-void Minigame3();
+void Minigame1(User user);   
+void Minigame2(User user);
+void Minigame3(User user);
+
+//USUARIOS
+struct User {
+    string name;
+    string key;
+};
+
+//REGISTRARSE
+User Register() {
+    User newU;
+    cout << "\n=============== Registro ===============\n";
+    cout << "Ingresa un nombre de usuario: ";
+    cin >> newU.name;
+    cout << "Ingresa una contraseña: ";
+    cin >> newU.key;
+
+    // Guardar usuario en archivo
+    ofstream arch("Users.txt", ios::app);
+    if (arch.is_open()) {
+        arch << newU.name << " " << newU.key << endl;
+        arch.close();
+        cout << "Registro exitoso!\n";
+    } else {
+        cout << "Error al guardar el usuario.\n";
+    }
+    return newU;
+}
+
+//ACCEDER
+bool Login(User &user) {
+    cout << "\n=============== Iniciar sesión ===============\n";
+    cout << "Usuario: ";
+    cin >> user.name;
+    cout << "Contraseña: ";
+    cin >> user.key;
+
+    ifstream arch("Users.txt");
+    string name, pass;
+    while (arch >> name >> pass) {
+        if (name == user.name && pass == user.key) {
+            cout << "Inicio de sesión exitoso. Bienvenido, " << user.name << "!\n";
+            return true;
+        }
+    }
+    cout << "Usuario o contraseña incorrectos.\n";
+    return false;
+}
 
 //INICIO
 void Start(){
-    cout << "-------------------- BUHO QUEST --------------------\n";
     cout << "       __________________________________________\n";
     cout << "      |  Bienvenido a Buho Quest!                |\n";
     cout << "      |  Soy Eros y tengo una mision para ti...  |\n";
@@ -25,15 +76,8 @@ void Start(){
     cout << "-*-*--\n";
 }
 
-/*GENERAR NUMERO ALEATORIO
-int Random_Num(){
-    srand(time(NULL));
-    int random = rand() % 15 + 1; 
-    return random;
-}*/
-
 //ELEGIR NIVEL
-char ChooseLevel(){
+char ChooseLevel(User user){
     char level;
     int repeat = 1;
 
@@ -55,19 +99,19 @@ char ChooseLevel(){
             case 'F':
             case 'f':
             cout << "Has elegido el nivel facil \n";
-            GuessPlace1(); // Adivinar entre 5 lugares
+            GuessPlace1(user); // Adivinar entre 5 lugares
             repeat = 0;
             break;
             case 'M':
             case 'm':
             cout << "Has elegido el nivel medio \n";
-            GuessPlace2(); // Adivinar entre 10 lugares
+            GuessPlace2(user); // Adivinar entre 10 lugares
             repeat = 0;
             break;
             case 'D':
             case 'd':
             cout << "Has elegido el nivel dificil \n";
-            GuessPlace3(); // Adivinar entre 15 lugares
+            GuessPlace3(user); // Adivinar entre 15 lugares
             repeat = 0;
             break;
             case 'S':
@@ -106,11 +150,24 @@ void PlacesU(string places[]) {
     }
 }
 
-void GuessPlace1() {
+//CONTADOR DE INTENTOS
+void SaveAttempts(const User& user, int level, int attempts) {
+    ofstream arch("Statistics.txt", ios::app);
+    if (arch.is_open()) {
+        arch << "Usuario: " << user.name << " - Nivel: " << level << " - Intentos: " << attempts << endl;
+        arch.close();
+    } else {
+        cout << "Error al guardar estadísticas.\n";
+    }
+}
+
+//ADIVINAR PARA 5 LUGARES
+void GuessPlace1(User user) {
     int random = rand() % 5; 
     string places[15];
     PlacesU(places);
     int guess;
+    int attempts = 0;
 
     cout << "\n¿Dónde crees que está escondido Eros?\n";
 
@@ -130,28 +187,34 @@ void GuessPlace1() {
 
         if (guess == 0) {
             cout << " ... Regresando al menú principal ...\n";
-            ChooseLevel();
+            SaveAttempts(user, 1 , attempts);
+            ChooseLevel(user);
             break;
         }
+
+        attempts++;
 
         if (guess - 1 == random) {
             cout << "Increible! Encontraste a Eros en " << places[random] << ".\n";
             cout << "Ahora puedes avanzar al siguiente nivel o repertirlo si quieres :D \n";
-            ChooseLevel();
+            SaveAttempts(user, 1 , attempts);
+            ChooseLevel(user);
             break;
         } else {
             cout << random << " Aquí no está Eros. Tendrás que completar un desafio para seguir buscando.\n";
-            Minigame1();
+            Minigame1(user);
         }
 
     } while (true);
 }
 
-void GuessPlace2() {
+//ADIVINAR PARA 10 LUGARES
+void GuessPlace2(User user) {
     int random = rand() % 10; 
     string places[15];
     PlacesU(places);
     int guess;
+    int attempts = 0;
 
     cout << "\n¿Dónde crees que está escondido Eros?\n";
 
@@ -171,28 +234,34 @@ void GuessPlace2() {
 
         if (guess == 0) {
             cout << " ... Regresando al menú principal ...\n";
-            ChooseLevel();
+            SaveAttempts(user, 2 , attempts);
+            ChooseLevel(user);
             break;
         }
+
+        attempts++;
 
         if (guess - 1 == random) {
             cout << "Eres un genio! Encontraste a Eros en " << places[random] << ".\n";
             cout << "Ahora puedes avanzar al siguiente nivel o repertirlo si quieres :D \n";
-            ChooseLevel();
+            SaveAttempts(user, 2 , attempts);
+            ChooseLevel(user);
             break;
         } else {
             cout << "En este lugar no está Eros. Completa el desafio para seguir buscando.\n";
-            Minigame2();
+            Minigame2(user);
         }
 
     } while (true);
 }
 
-void GuessPlace3() {
+//ADIVINAR PARA 15 LUGARES
+void GuessPlace3(User user) {
     int random = rand() % 15; 
     string places[15];
     PlacesU(places);
     int guess;
+    int attempts = 0;
 
     cout << "\n¿Dónde crees que está escondido Eros?\n";
 
@@ -212,23 +281,28 @@ void GuessPlace3() {
 
         if (guess == 0) {
             cout << " ... Regresando al menú principal ...\n";
-            ChooseLevel();
+            SaveAttempts(user, 3 , attempts);
+            ChooseLevel(user);
             break;
         }
+
+        attempts++;
 
         if (guess - 1 == random) {
             cout << "Wow, muchas felicidades! Encontraste a Eros en " << places[random] << ".\n\n";
             cout << "Ahora puedes volver a empezar los niveles y encontrar a Eros en su nuevo escondite :D \n";
-            ChooseLevel();
+            SaveAttempts(user, 3 , attempts);
+            ChooseLevel(user);
             break;
         } else {
             cout << "Aquí no está Eros. Tendrás que completar un desafio para seguir buscando.\n";
-            Minigame3();
+            Minigame3(user);
         }
 
     } while (true);
 }
 
+//VOLVER AL MENU
 char BackMenu(){    
     char option;
     do{ 
@@ -255,7 +329,7 @@ char BackMenu(){
     } while (true);
 }
 
-// ----- Juego - SENDERO NOCTURNO -----
+// ----- DESAFIO 1 - SENDERO NOCTURNO -----
 const int goal = 20;
 
 int rollDice() {
@@ -277,11 +351,11 @@ void showBoard(int playerPos, int cpuPos) {
     cout << "\n";
 }
 
-void Minigame1() {
+void Minigame1(User user) {
     int playerPos = 0, ErosPos = 0;
     string userInput;
 
-    cout << "\nBienvenido al desafio - SENDERO NOCTURNO! \nLlega a la meta (casilla 20) para ganar.\n";
+    cout << "\nBienvenido al desafio - SENDERO NOCTURNO! \nLlega a la meta (casilla 20) antes que Eros para ganar.\n";
 
     cin.ignore();
 
@@ -328,15 +402,15 @@ void Minigame1() {
     } else {
         char selection = BackMenu();
         if (selection == 'V' || selection == 'v'){
-            Minigame1();
+            Minigame1(user);
         } else {
             cout << " ... Regresando al menú princpial ...\n";
-            ChooseLevel();
+            ChooseLevel(user);
         }
     }
 }
 
-// ----- Juego - EL PUENTE MISTERIOSO -----
+// ----- DESAFIO 2 - EL PUENTE MISTERIOSO -----
 void Show_bridge(int desing[], int currentLevel, int totalLevels) {
     cout << "\nEstado del Puente:\n";
     cout << "Izquierda  |  Derecha\n";
@@ -350,10 +424,10 @@ void Show_bridge(int desing[], int currentLevel, int totalLevels) {
     cout << "\n";
 }
 
-void Minigame2() {
+void Minigame2(User user) {
     const int max_level = 7;
     int desing[max_level];
-    int lives = 3;
+    int lives = 5;
     int player_choice;
     int levels = max_level;
 
@@ -362,6 +436,7 @@ void Minigame2() {
     }
 
     cout << "\nBienvenido al desafio - EL PUENTE MISTERIOSO\n";
+    cout << "Este es un puente de tablones de cristal, solo un lado es el correcto para cada tablon y el otro está roto.\n";
     cout << "Reglas: Elige 1 (izquierda) o 2 (derecha). Tienes " << lives << " vidas.\n";
 
     int current_level = 0;
@@ -372,7 +447,7 @@ void Minigame2() {
         cin >> player_choice;
 
         if (player_choice == desing[current_level]) {
-            cout << "¡Correcto! Avanzas.\n";
+            cout << "Correcto! Avanzas.\n";
             current_level++;
         } else {
             lives--;
@@ -399,20 +474,20 @@ void Minigame2() {
         }
         char selection = BackMenu();
         if (selection == 'V' || selection == 'v'){
-            Minigame2();
+            Minigame2(user);
         } else {
             cout << " ... Regresando al menú princpial ...\n";
-            ChooseLevel();
+            ChooseLevel(user);
         }
     }
 }
 
-// ----- Juego - LAS PUERTAS DEL SABER -----
-void Minigame3() {
+// ----- DESAFIO 3 - LAS PUERTAS DEL SABER -----
+void Minigame3(User user) {
     const int rounds = 5;
     int desing[rounds];
     int choice;
-    int lives = 5;
+    int lives = 6;
 
     for (int i = 0; i < rounds; i++) {
         desing[i] = rand() % 3 + 1;
@@ -448,10 +523,10 @@ void Minigame3() {
                 cout << "Has perdido todas tus vidas en la ronda " << round + 1 << ".\n";
                 char selection = BackMenu();
                 if (selection == 'V' || selection == 'v'){
-                    Minigame3();
+                    Minigame3(user);
                 } else {
                     cout << " ... Regresando al menú princpial ...\n";
-                    ChooseLevel();
+                    ChooseLevel(user);
                 }
                 return;
             }
@@ -471,8 +546,32 @@ void Minigame3() {
 //INT MAIN
 int main() {
     srand(time(NULL));
+    User user;
+    char option;
+    cout << "-------------------- BUHO QUEST --------------------\n";
+    do {
+        cout << "\n=============== Menú principal ===============\n";
+        cout << "|     1. Registrar                            |\n";
+        cout << "|     2. Iniciar sesión                      |\n";
+        cout << "|     3. Salir                                |\n";
+        cout << "===============================================\n";
+        cout << "Selecciona una opción: ";
+        cin >> option;
+
+        if (option == '1') {
+            user = Register();
+            break;
+        } else if (option == '2') {
+            if (Login(user)) break;
+        } else if (option == '3') {
+            cout << "Hasta pronto!\n";
+            return 0;
+        } else {
+            cout << "Opción inválida.\n";
+        }
+    } while (true);
     Start();
-    ChooseLevel();
+    ChooseLevel(user);
     
     return 0;
 }
