@@ -35,6 +35,19 @@ Estructuras y conceptos utilizados
 - Generación aleatoria: rand() y srand(time(NULL)).
 - Modularidad: Código organizado en funciones.
 
+---
+
+Archivos generados
+- Users.txt	        Guarda los usuarios registrados.
+- Statistics.txt	  Registra los intentos por nivel y usuario al ganar.
+
+---
+
+Notas adicionales
+- Cada partida genera nuevos lugares aleatorios.
+- Los desafíos se pueden repetir tantas veces como el jugador desee.
+- Los datos persisten mientras no se borren los archivos .txt.
+
 
 ## Equipo
 
@@ -67,19 +80,6 @@ Pasos para compilar y ejecutar
 3. Ejecutar:
    Usando...
    ./BuhoQuest ó BuhoQuest.exe
-
----
-
-Archivos generados
-- Users.txt	        Guarda los usuarios registrados.
-- Statistics.txt	  Registra los intentos por nivel y usuario al ganar.
-
----
-
-Notas adicionales
-- Cada partida genera nuevos lugares aleatorios.
-- Los desafíos se pueden repetir tantas veces como el jugador desee.
-- Los datos persisten mientras no se borren los archivos .txt.
 
 ---
 
