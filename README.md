@@ -1,32 +1,88 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/mi1WNrHU)
-# Proyecto de C++ - [Nombre del Juego]
+# Proyecto de C++ - Búho Quest
 
 ## Descripción del Proyecto
 
-Breve descripción del juego, su propósito, cómo se juega y cualquier otro detalle importante que describa la idea general del proyecto.
+Búho Quest es un videojuego de aventuras por consola desarrollado en C++, ambientado en la Universidad Centroamericana José Simeón Cañas (UCA). El jugador debe encontrar a Eros, un búho escondido en diversos lugares del campus, enfrentando desafíos y superando niveles de dificultad.
 
-**Por ejemplo:**
-Este proyecto consiste en un juego de aventuras donde el jugador debe explorar un mundo virtual, recoger objetos, resolver acertijos y enfrentar enemigos. El juego utiliza estructuras de control como `if`, `switch`, y bucles `while` y `for` para generar interacciones dinámicas.
+---
+
+Características principales
+
+Registro e inicio de sesión:
+- Los usuarios se registran con nombre y contraseña.
+- La información se almacena en el archivo Users.txt.
+
+Niveles de dificultad:
+- Fácil: 5 lugares posibles.
+- Medio: 10 lugares.
+- Difícil: 15 lugares.
+
+Minijuegos:
+- Sendero Nocturno: Carrera de dados contra Eros.
+- Puente Misterioso: Elegir el lado correcto del puente.
+- Puertas del Saber: Elegir la puerta correcta.
+ 
+Estadísticas:
+- Guarda los intentos realizados en Statistics.txt por usuario y nivel cuando el jugador gana.
+
+---
+
+Estructuras y conceptos utilizados
+- Estructuras: Uso de struct para representar a los usuarios.
+- Manejo de archivos: Lectura y escritura de archivos de texto (fstream).
+- Control de flujo: Uso de if, switch, while, do-while, for.
+- Generación aleatoria: rand() y srand(time(NULL)).
+- Modularidad: Código organizado en funciones.
+
 
 ## Equipo
 
-- **Nombre del equipo:** [Nombre del equipo]
+- **Nombre del equipo:** Cheros++
 
 ### Integrantes del equipo
 
-1. **Nombre completo:** [Nombre del estudiante 1]  
-   **Carnet:** [Carnet del estudiante 1]
+1. **Nombre completo:** Fernando Darío Serpas Escobar  
+   **Carnet:** 00087325
 
-2. **Nombre completo:** [Nombre del estudiante 2]  
-   **Carnet:** [Carnet del estudiante 2]
-
-3. **Nombre completo:** [Nombre del estudiante 3]  
-   **Carnet:** [Carnet del estudiante 3]
-
-(Agregar más integrantes si es necesario)
+2. **Nombre completo:** Alejandro Fabian Ramírez Canales  
+   **Carnet:** 00194725
 
 ## Instrucciones de Ejecución
+
+Requisitos previos
+- Compilador g++ o equivalente.
+- Consola de comandos o terminal.
+
+Pasos para compilar y ejecutar
 
 1. Clona este repositorio en tu máquina local:
    ```bash
    git clone [URL del repositorio]
+
+2. Compilar el programa:
+   Usando...
+   g++ BuhoQuest.cpp -o BuhoQuest
+
+3. Ejecutar:
+   Usando...
+   ./BuhoQuest ó BuhoQuest.exe
+
+---
+
+Archivos generados
+- Users.txt	        Guarda los usuarios registrados.
+- Statistics.txt	  Registra los intentos por nivel y usuario al ganar.
+
+---
+
+Notas adicionales
+- Cada partida genera nuevos lugares aleatorios.
+- Los desafíos se pueden repetir tantas veces como el jugador desee.
+- Los datos persisten mientras no se borren los archivos .txt.
+
+---
+
+Desarrollado por Cheros++
+
+"Nuestra realidad también puede ser divertida si tenemos la suficiente imaginación."
