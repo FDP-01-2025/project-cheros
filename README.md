@@ -58,7 +58,7 @@ Pasos para compilar y ejecutar
 
 1. Clona este repositorio en tu máquina local:
    ```bash
-   git clone [URL del repositorio]
+   git clone https://github.com/FDP-01-2025/project-cheros.git
 
 2. Compilar el programa:
    Usando...
