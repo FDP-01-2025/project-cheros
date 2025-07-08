@@ -1,28 +1,11 @@
+#include "BuhoQuest.h"
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
 #include <fstream>
 using namespace std;
 
-struct User;
-User Register();
-bool Login(User &user);
-void SaveAttempts(const User& user, int level, int attempts);
-void GuessPlace1(User user); 
-void GuessPlace2(User user);
-void GuessPlace3(User user);
-char BackMenu();
-void Minigame1(User user);   
-void Minigame2(User user);
-void Minigame3(User user);
-
-//USUARIOS
-struct User {
-    string name;
-    string key;
-};
-
-//REGISTRARSE
+// REGISTER
 User Register() {
     User newU;
     cout << "\n=============== Registro ===============\n";
@@ -31,7 +14,7 @@ User Register() {
     cout << "Ingresa una contraseña: ";
     cin >> newU.key;
 
-    // Guardar usuario en archivo
+    // SAVE USER TO FILE
     ofstream arch("Users.txt", ios::app);
     if (arch.is_open()) {
         arch << newU.name << " " << newU.key << endl;
@@ -43,7 +26,7 @@ User Register() {
     return newU;
 }
 
-//ACCEDER
+// ACCESS THE ACCOUNT
 bool Login(User &user) {
     cout << "\n=============== Iniciar sesión ===============\n";
     cout << "Usuario: ";
@@ -63,7 +46,7 @@ bool Login(User &user) {
     return false;
 }
 
-//INICIO
+// START GAME
 void Start(){
     cout << "       __________________________________________\n";
     cout << "      |  Bienvenido a Buho Quest!                |\n";
@@ -76,7 +59,7 @@ void Start(){
     cout << "-*-*--\n";
 }
 
-//ELEGIR NIVEL
+// CHOOSE LEVEL (EASY, MEDIUM OR DIFFICULT)
 char ChooseLevel(User user){
     char level;
     int repeat = 1;
@@ -99,19 +82,19 @@ char ChooseLevel(User user){
             case 'F':
             case 'f':
             cout << "Has elegido el nivel facil \n";
-            GuessPlace1(user); // Adivinar entre 5 lugares
+            GuessPlace1(user); // GUESS BETWEEN 5 PLACES
             repeat = 0;
             break;
             case 'M':
             case 'm':
             cout << "Has elegido el nivel medio \n";
-            GuessPlace2(user); // Adivinar entre 10 lugares
+            GuessPlace2(user); // GUESS BETWEEN 10 PLACES
             repeat = 0;
             break;
             case 'D':
             case 'd':
             cout << "Has elegido el nivel dificil \n";
-            GuessPlace3(user); // Adivinar entre 15 lugares
+            GuessPlace3(user); // GUESS BETWEEN 15 PLACES
             repeat = 0;
             break;
             case 'S':
@@ -126,7 +109,7 @@ char ChooseLevel(User user){
     return level;
 }
 
-//LISTA DE LUGARES
+// LIST OF PLACES
 void PlacesU(string places[]) {
     string temp[15] = {
         "Cafetería", 
@@ -150,7 +133,7 @@ void PlacesU(string places[]) {
     }
 }
 
-//CONTADOR DE INTENTOS
+// ATTEMPTS COUNTER
 void SaveAttempts(const User& user, int level, int attempts) {
     ofstream arch("Statistics.txt", ios::app);
     if (arch.is_open()) {
@@ -161,8 +144,9 @@ void SaveAttempts(const User& user, int level, int attempts) {
     }
 }
 
-//ADIVINAR PARA 5 LUGARES
+// GUESS FOR 5 PLACES
 void GuessPlace1(User user) {
+    // GENERATE RANDOM NUMBER BETWEEN 1 AND 5
     int random = rand() % 5; 
     string places[15];
     PlacesU(places);
@@ -170,7 +154,7 @@ void GuessPlace1(User user) {
     int attempts = 0;
 
     cout << "\n¿Dónde crees que está escondido Eros?\n";
-
+    // LOOP ARRAY
     do {
         cout << "Lugares disponibles:\n";
         for (int i = 0; i < 5; i++) {
@@ -178,6 +162,7 @@ void GuessPlace1(User user) {
         }
         cout << "0. Salir\n";
 
+        // THE PLAYER CHOOSES A PLACE BETWEEN 1 AND 5
         cout << "Elige el número del lugar: ";
         cin >> guess;
         if (guess < 0 || guess > 5) {
@@ -201,15 +186,16 @@ void GuessPlace1(User user) {
             ChooseLevel(user);
             break;
         } else {
-            cout << random << " Aquí no está Eros. Tendrás que completar un desafio para seguir buscando.\n";
+            cout << " Aquí no está Eros. Tendrás que completar un desafio para seguir buscando.\n";
             Minigame1(user);
         }
 
     } while (true);
 }
 
-//ADIVINAR PARA 10 LUGARES
+// GUESS FOR 10 PLACES
 void GuessPlace2(User user) {
+    // GENERATE RANDOM NUMBER BETWEEN 1 AND 10
     int random = rand() % 10; 
     string places[15];
     PlacesU(places);
@@ -217,7 +203,7 @@ void GuessPlace2(User user) {
     int attempts = 0;
 
     cout << "\n¿Dónde crees que está escondido Eros?\n";
-
+    // LOOP ARRAY
     do {
         cout << "Lugares disponibles:\n";
         for (int i = 0; i < 10; i++) {
@@ -225,6 +211,7 @@ void GuessPlace2(User user) {
         }
         cout << "0. Salir\n";
 
+        // THE PLAYER CHOOSES A PLACE BETWEEN 1 AND 10
         cout << "Elige el número del lugar: ";
         cin >> guess;
         if (guess < 0 || guess > 10) {
@@ -255,8 +242,9 @@ void GuessPlace2(User user) {
     } while (true);
 }
 
-//ADIVINAR PARA 15 LUGARES
+// GUESS FOR 15 PLACES
 void GuessPlace3(User user) {
+    // GENERATE RANDOM NUMBER BETWEEN 1 AND 15
     int random = rand() % 15; 
     string places[15];
     PlacesU(places);
@@ -264,14 +252,15 @@ void GuessPlace3(User user) {
     int attempts = 0;
 
     cout << "\n¿Dónde crees que está escondido Eros?\n";
-
+    // LOOP ARRAY
     do {
         cout << "Lugares disponibles:\n";
         for (int i = 0; i < 15; i++) {
             cout << (i + 1) << ". " << places[i] << "\n";
         }
         cout << "0. Salir\n";
-
+        
+        // THE PLAYER CHOOSES A PLACE BETWEEN 1 AND 15
         cout << "Elige el número del lugar: ";
         cin >> guess;
         if (guess < 0 || guess > 15) {
@@ -302,7 +291,7 @@ void GuessPlace3(User user) {
     } while (true);
 }
 
-//VOLVER AL MENU
+// RETURN TO MENU
 char BackMenu(){    
     char option;
     do{ 
@@ -329,13 +318,15 @@ char BackMenu(){
     } while (true);
 }
 
-// ----- DESAFIO 1 - SENDERO NOCTURNO -----
+// ----- CHALLENGE 1 - "SENDERO NOCTURNO" -----
 const int goal = 20;
 
+// GIVEN AT RANDOM
 int rollDice() {
     return rand() % 6 + 1;
 }
 
+// SHOW BOARD
 void showBoard(int playerPos, int cpuPos) {
     cout << "\nTablero:\n";
     for (int i = 1; i <= goal; i++) {
@@ -351,6 +342,7 @@ void showBoard(int playerPos, int cpuPos) {
     cout << "\n";
 }
 
+//START MINIGAME 1
 void Minigame1(User user) {
     int playerPos = 0, ErosPos = 0;
     string userInput;
@@ -410,7 +402,8 @@ void Minigame1(User user) {
     }
 }
 
-// ----- DESAFIO 2 - EL PUENTE MISTERIOSO -----
+// ----- CHALLENGE 2 - "EL PUENTE MISTERIOSO" -----
+// SHOW BRIDGE
 void Show_bridge(int desing[], int currentLevel, int totalLevels) {
     cout << "\nEstado del Puente:\n";
     cout << "Izquierda  |  Derecha\n";
@@ -424,6 +417,7 @@ void Show_bridge(int desing[], int currentLevel, int totalLevels) {
     cout << "\n";
 }
 
+// START MINIGAME 2
 void Minigame2(User user) {
     const int max_level = 7;
     int desing[max_level];
@@ -482,7 +476,7 @@ void Minigame2(User user) {
     }
 }
 
-// ----- DESAFIO 3 - LAS PUERTAS DEL SABER -----
+// ----- CHALLENGE 3 - "LAS PUERTAS DEL SABER" -----
 void Minigame3(User user) {
     const int rounds = 5;
     int desing[rounds];
@@ -541,37 +535,4 @@ void Minigame3(User user) {
     cout << "(0,0)\n";
     cout << "{'''}\n";
     cout << "-*-*--\n";
-}
-    
-//INT MAIN
-int main() {
-    srand(time(NULL));
-    User user;
-    char option;
-    cout << "-------------------- BUHO QUEST --------------------\n";
-    do {
-        cout << "\n=============== Menú principal ===============\n";
-        cout << "|     1. Registrar                            |\n";
-        cout << "|     2. Iniciar sesión                      |\n";
-        cout << "|     3. Salir                                |\n";
-        cout << "===============================================\n";
-        cout << "Selecciona una opción: ";
-        cin >> option;
-
-        if (option == '1') {
-            user = Register();
-            break;
-        } else if (option == '2') {
-            if (Login(user)) break;
-        } else if (option == '3') {
-            cout << "Hasta pronto!\n";
-            return 0;
-        } else {
-            cout << "Opción inválida.\n";
-        }
-    } while (true);
-    Start();
-    ChooseLevel(user);
-    
-    return 0;
 }
