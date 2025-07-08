@@ -81,6 +81,20 @@ Pasos para compilar y ejecutar
    Usando...
    ./BuhoQuest ó BuhoQuest.exe
 
+## Aplicación de los temas vistos
+
+- Variables y tipos de datos: int, string, bool para almacenar usuarios, niveles e intentos.
+- Estructuras condicionales: if, else, switch para decidir el resultado del minijuego.
+- Ciclos: for, while y do while para repetir intentos en minijuegos.
+- Funciones: Como Login(), Register(), GuessPlace1(), Minigame1().
+- Estructura de datos: struct User para almacenar datos del jugador.
+- Manejo de archivos: Guardar y leer intentos desde un archivo .txt.
+- Manejo de errores: Validar entrada de datos y mostrar mensajes de error claros.
+- Interfaz por consola: Mostrar menús y resultados usando cout.
+
+## Mockups
+- Dentro de Resources
+  
 ---
 
 Desarrollado por Cheros++
